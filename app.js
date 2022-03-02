@@ -16,6 +16,7 @@ app.post("/",function(req,res){
   var firstName = req.body.fName;
   var lastName = req.body.lName;
   var email = req.body.email;
+  var msg =req.body.subject;
 
   var data = {
     members: [
@@ -24,13 +25,14 @@ app.post("/",function(req,res){
         status: "subscribed",
         merge_fields: {
           FNAME:firstName,
-          LNAME:lastName
+          LNAME:lastName,
+          MESSAGE:msg
         }
       }
     ]
   };
   const jsonData= JSON.stringify(data);
-  const url = "https://us14.api.mailchimp.com/3.0/lists/858394c70";
+  const url = "https://us14.api.mailchimp.com/3.0/lists/858394c702";
   const options = {
     method: "POST",
     auth: "Authentication:4c57cf5f6638817674866b853a85fa17-us14"
@@ -38,6 +40,9 @@ app.post("/",function(req,res){
 
   const request = https.request(url, options, function(response) {
     response.on("data",function(data){
+      if(response.statusCode===200&&email=="tamanna.sachdeva@grazitti.com"){
+        res.sendFile(__dirname+"/temp.html")
+      }
       if (response.statusCode===200){
         res.sendFile(__dirname+"/success.html")
       }

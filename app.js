@@ -40,9 +40,9 @@ app.post("/",function(req,res){
 
   const request = https.request(url, options, function(response) {
     response.on("data",function(data){
-      if(response.statusCode===200&&email=="tamanna.sachdeva@grazitti.com"){
-        res.sendFile(__dirname+"/temp.html")
-      }
+      // if(response.statusCode===200&&email=="tamanna.sachdeva@grazitti.com"){
+      //   res.sendFile(__dirname+"/temp.html")
+      // }
       if (response.statusCode===200){
         res.sendFile(__dirname+"/success.html")
       }
